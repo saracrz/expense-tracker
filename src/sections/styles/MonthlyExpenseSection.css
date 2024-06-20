@@ -1,0 +1,13 @@
+.close-modal {
+  justify-content: end;
+  color: black;
+  display: flex;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 4px;
+  height: 25%;
+  padding: 12px;
+  width: 100%;
+}
