@@ -1,0 +1,54 @@
+.tab-buttons {
+  /* padding: 14px; */
+}
+
+button {
+  background-color: #292735;
+  border-radius: 0;
+  color: #fc85fe;
+  padding: 10px 50px;
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+button:hover {
+  background-color: #fc85fe;
+  color: #292735;
+  outline: none;
+}
+
+.active {
+  background-color: #292735;
+  border-radius: 0;
+  border-bottom: 2px solid #fc85fe;
+  padding: 10px 30px;
+}
+
+.inactive {
+  background-color: #292735;
+  border-radius: 0;
+  border-bottom: 2px solid #fc85fe;
+  padding: 10px 30px;
+}
+
+.tab-content {
+  margin-top: 24px;
+}
+
+.item-name {
+  flex-direction: column;
+}
+
+.item-amount {
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 12px;
+}
