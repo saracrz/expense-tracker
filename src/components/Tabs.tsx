@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./styles/Tabs.css";
+import { generateRandomKey } from "../helpers";
 
 interface Tab {
   title: string;
@@ -25,7 +26,7 @@ export const Tabs = ({ tabs }: TabsProps) => {
       <div className="tab-buttons">
         {tabs.map((tab, index) => (
           <button
-            key={index}
+            key={generateRandomKey(tab.title)}
             className={index === activeTab ? "active" : "inactive"}
             onClick={() => handleTabClick(index)}
           >
@@ -33,14 +34,14 @@ export const Tabs = ({ tabs }: TabsProps) => {
           </button>
         ))}
       </div>
-      <div className="tab-content">
+      <ul className="tab-content">
         {tabs[activeTab].items?.map((item) => (
-          <div className="item">
+          <li className="item" key={generateRandomKey(item.itemName)}>
             <span className="item-name">{item.itemName}</span>
             <span className="item-amount">{item.itemAmount}</span>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </>
   );
 };

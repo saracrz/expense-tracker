@@ -23,19 +23,21 @@ button:hover {
 .active {
   background-color: #292735;
   border-radius: 0;
+
+  color: #fc85fe;
   border-bottom: 2px solid #fc85fe;
-  padding: 10px 30px;
 }
 
 .inactive {
   background-color: #292735;
   border-radius: 0;
-  border-bottom: 2px solid #fc85fe;
-  padding: 10px 30px;
+  border-bottom: 2px solid #837b83;
+  color: #c6b3c6;
 }
 
 .tab-content {
-  margin-top: 24px;
+  max-height: 400px; /* Set the maximum height here */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .item-name {
@@ -51,4 +53,8 @@ button:hover {
   flex-direction: row;
   justify-content: space-between;
   margin-top: 12px;
+}
+
+ul {
+  padding: 0;
 }
