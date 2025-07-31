@@ -6,7 +6,7 @@ function App() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>; // or a spinner component
+    return <div>Loading...</div>;
   }
 
   return <>{!user ? <LoginSection /> : <MonthlyExpenseSection />}</>;
