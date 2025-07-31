@@ -1,18 +1,18 @@
-import { ChangeEvent } from "react";
-
 export const Input = ({
   onChangeValue,
   placeholder,
+  type = "text",
   value,
 }: {
-  onChangeValue: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeValue: (value: string) => void;
   placeholder: string;
+  type?: string;
   value: string;
 }) => (
   <input
-    type="text"
+    type={type}
     value={value}
     placeholder={placeholder}
-    onChange={onChangeValue}
+    onChange={(e) => onChangeValue(e.target.value)}
   />
 );

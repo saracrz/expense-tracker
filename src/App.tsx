@@ -1,8 +1,15 @@
 import "./App.css";
-import { MonthlyExpenseSection } from "./sections";
+import { LoginSection, MonthlyExpenseSection } from "./sections";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
-  return <MonthlyExpenseSection />;
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return <>{!user ? <LoginSection /> : <MonthlyExpenseSection />}</>;
 }
 
 export default App;
