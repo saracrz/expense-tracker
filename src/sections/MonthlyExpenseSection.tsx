@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Input, RoundButton, Tabs } from "../components";
 import "./styles/MonthlyExpenseSection.css";
 import { addExpense, getExpenses } from "../firestoreService";
+import { Input, RoundButton, Tabs } from "../components";
+import { useAuth } from "../hooks/useAuth";
 
 const monthNames = [
   "January",
@@ -26,6 +27,7 @@ export type Expense = {
 export type Expenses = Expense[];
 
 export const MonthlyExpenseSection = () => {
+  const { logout } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   const [expenseAmount, setExpenseAmount] = useState("");
   const [expenseName, setExpenseName] = useState("");
@@ -74,8 +76,14 @@ export const MonthlyExpenseSection = () => {
     setOpenModal(false);
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <>
+      <button onClick={handleLogout}>Logout</button>
+
       <div>
         <h2>{monthNames[currentMonth - 1]}</h2>
         <p>{totalExpensesAmount} €</p>
@@ -90,12 +98,12 @@ export const MonthlyExpenseSection = () => {
             <Input
               placeholder="Expense name"
               value={expenseName}
-              onChangeValue={(e) => setExpenseName(e.target.value)}
+              onChangeValue={(value) => setExpenseName(value)}
             />
             <Input
               placeholder="Expense amount"
               value={expenseAmount}
-              onChangeValue={(e) => setExpenseAmount(e.target.value)}
+              onChangeValue={(value) => setExpenseAmount(value)}
             />
             <button onClick={saveExpenseTotalAmount}>Save</button>
           </div>
