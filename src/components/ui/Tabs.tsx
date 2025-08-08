@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./styles/Tabs.css";
-import { generateRandomKey } from "../helpers";
+import "../styles/Tabs.css";
+import { generateRandomKey } from "../../helpers";
 
 interface Tab {
   title: string;

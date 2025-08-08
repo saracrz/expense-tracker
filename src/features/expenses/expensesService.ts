@@ -1,4 +1,4 @@
-import { db } from "./firebase";
+import { db } from "../../firebase";
 import {
   collection,
   addDoc,
@@ -6,7 +6,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { Expense } from "./sections/MonthlyExpenseSection";
+import { Expense } from "./types";
 
 type FirebaseExpenseResponse = {
   amount: number;
