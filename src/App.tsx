@@ -1,6 +1,8 @@
 import "./App.css";
-import { LoginSection, MonthlyExpenseSection } from "./sections";
-import { useAuth } from "./hooks/useAuth";
+
+import { useAuth } from "./features/auth/useAuth";
+import { MonthlyExpenseSection } from "./features/expenses/MonthlyExpenseSection";
+import { LoginSection } from "./features/auth/LoginSection";
 
 function App() {
   const { user, loading } = useAuth();

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { LoginForm } from "../components";
-import { useAuth } from "../hooks/useAuth";
+import { LoginForm } from "../auth/LoginForm";
+import { useAuth } from "../auth/useAuth";
 
 export const LoginSection = () => {
   const { login, register, user, loading } = useAuth();

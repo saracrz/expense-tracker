@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import "./styles/MonthlyExpenseSection.css";
-import { addExpense, getExpenses } from "../firestoreService";
-import { Input, RoundButton, Tabs } from "../components";
-import { useAuth } from "../hooks/useAuth";
+// import "./styles/MonthlyExpenseSection.css";
+import { addExpense, getExpenses } from "./expensesService";
+import { Input, RoundButton, Tabs } from "../../components/ui";
+import { useAuth } from "../auth/useAuth";
+import { Expenses } from "./types";
 
 const monthNames = [
   "January",
@@ -18,13 +19,6 @@ const monthNames = [
   "November",
   "December",
 ];
-
-export type Expense = {
-  name: string;
-  amount: number;
-};
-
-export type Expenses = Expense[];
 
 export const MonthlyExpenseSection = () => {
   const { logout } = useAuth();
@@ -64,7 +58,6 @@ export const MonthlyExpenseSection = () => {
       amount: parsedAmount,
     };
 
-    // Save to Firestore
     addExpense(newExpense);
 
     setExpenses((prevExpenses) => [...prevExpenses, newExpense]);

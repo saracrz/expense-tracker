@@ -6,7 +6,7 @@ import {
   onAuthStateChanged,
   User,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
