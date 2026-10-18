@@ -1,3 +1,4 @@
 export * from "./Input";
-export * from "./RoundButton";
+export * from "./Button";
 export * from "./Tabs";
+export * from "./MonthHero";
