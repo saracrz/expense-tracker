@@ -1,17 +1,12 @@
-import "./App.css";
-
-import { useAuth } from "./features/auth/useAuth";
 import { MonthlyExpenseSection } from "./features/expenses/MonthlyExpenseSection";
-import { LoginSection } from "./features/auth/LoginSection";
+import { getMonthTheme } from "./lib/month";
 
 function App() {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return <>{!user ? <LoginSection /> : <MonthlyExpenseSection />}</>;
+  return (
+    <div style={getMonthTheme().style} className="min-h-dvh">
+      <MonthlyExpenseSection />
+    </div>
+  );
 }
 
 export default App;
