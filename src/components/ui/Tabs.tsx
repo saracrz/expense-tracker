@@ -35,7 +35,7 @@ export const Tabs = ({ tabs }: TabsProps) => {
               "-mb-px border-b-2 pb-3 text-sm font-semibold transition-colors outline-none focus-visible:text-primary",
               index === activeTab
                 ? "border-primary text-foreground"
-                : "border-transparent text-muted-foreground hover:text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground",
             )}
             onClick={() => handleTabClick(index)}
           >
