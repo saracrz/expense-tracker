@@ -6,6 +6,7 @@ import { Button, Tabs, MonthHero } from "../../components/ui";
 import { Expenses } from "./types";
 import { Plus } from "lucide-react";
 import { AddExpenseForm } from "./AddExpenseForm";
+import { AmountList } from "../../components/AmountList";
 
 const formatAmount = (amount: number) => `${amount.toFixed(2)} €`;
 
@@ -65,14 +66,18 @@ export const MonthlyExpenseSection = () => {
         tabs={[
           {
             title: "Expenses",
-            items: expenses.map((exp) => ({
-              itemName: exp.name,
-              itemAmount: formatAmount(exp.amount),
-            })),
+            content: (
+              <AmountList
+                items={expenses.map((exp) => ({
+                  itemName: exp.name,
+                  itemAmount: formatAmount(exp.amount),
+                }))}
+              />
+            ),
           },
           {
             title: "Income",
-            items: [{ itemName: "salary", itemAmount: "2000" }],
+            content: <AmountList items={[]} />,
           },
         ]}
       />

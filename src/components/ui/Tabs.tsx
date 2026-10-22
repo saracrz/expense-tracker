@@ -1,16 +1,10 @@
 import { useState } from "react";
-import { generateRandomKey } from "../../helpers";
+
 import { cn } from "@/lib/utils";
-import { AmountChip } from "./AmountChip";
 
 interface Tab {
   title: string;
-  items: Items[];
-}
-
-interface Items {
-  itemName: string;
-  itemAmount: string;
+  content: React.ReactNode;
 }
 
 type TabsProps = { tabs: Tab[] };
@@ -22,8 +16,6 @@ export const Tabs = ({ tabs }: TabsProps) => {
     setActiveTab(index);
   };
 
-  const items = tabs[activeTab].items ?? [];
-
   return (
     <div className="mt-5 grid gap-5">
       <div
@@ -32,7 +24,7 @@ export const Tabs = ({ tabs }: TabsProps) => {
       >
         {tabs.map((tab, index) => (
           <button
-            key={generateRandomKey(tab.title)}
+            key={index}
             role="tab"
             aria-selected={index === activeTab}
             className={cn(
@@ -48,25 +40,7 @@ export const Tabs = ({ tabs }: TabsProps) => {
         ))}
       </div>
       <div className="rounded-card border-2 border-foreground bg-card px-4 shadow-hard">
-        {items.length === 0 ? (
-          <p className="py-12 text-center text-muted-foreground">
-            Nothing here yet.
-          </p>
-        ) : (
-          <ul role="tabpanel">
-            {items.map((item) => (
-              <li
-                className="flex items-center justify-between gap-4 border-b border-foreground/12 py-3 last:border-b-0"
-                key={generateRandomKey(item.itemName)}
-              >
-                <span className="truncate text-base font-bold">
-                  {item.itemName}
-                </span>
-                <AmountChip>{item.itemAmount}</AmountChip>
-              </li>
-            ))}
-          </ul>
-        )}
+        {tabs.length > 0 && tabs[activeTab].content}
       </div>
     </div>
   );
