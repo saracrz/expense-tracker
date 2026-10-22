@@ -3,9 +3,28 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Design tokens mirror the Penpot "base" token set. Spacing (4px steps),
+ * font sizes (xs/sm/base/xl/2xl = 12/14/16/20/24) and weights
+ * (medium/bold/extrabold/black = 500/700/800/900) use Tailwind's defaults.
+ */
 @theme inline {
-  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Work Sans", ui-sans-serif, sans-serif;
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo", ui-sans-serif, sans-serif;
+  --text-display: 4rem;
+  --text-display--line-height: 1;
+  --radius-control: 10px;
+  --radius-card: 14px;
+  --radius-sheet: 32px;
+  --shadow-hard: 3px 3px 0 0 var(--foreground);
+  --shadow-hard-danger: 3px 3px 0 0 var(--destructive);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-category-home: #f2c14e;
+  --color-category-food: #c5e86c;
+  --color-category-bills: #c9b6f2;
+  --color-category-fun: #ffb38a;
+  --color-category-health: #9fd8e8;
+  --color-category-other: #e5dccb;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -45,24 +64,26 @@
 
 :root {
   --radius: 0.75rem;
-  --background: #f5f6f8;
-  --foreground: #1c2230;
+  --background: #fbf5e9;
+  --foreground: #111111;
   --card: #ffffff;
-  --card-foreground: #1c2230;
+  --card-foreground: #111111;
   --popover: #ffffff;
-  --popover-foreground: #1c2230;
-  --primary: #1c2230;
-  --primary-foreground: #ffffff;
-  --secondary: #eceef2;
-  --secondary-foreground: #1c2230;
-  --muted: #eceef2;
-  --muted-foreground: #667085;
-  --accent: #e6e9ee;
-  --accent-foreground: #1c2230;
-  --destructive: #c0262d;
-  --border: #e2e5ea;
-  --input: #d5d9e0;
-  --ring: #1c2230;
+  --popover-foreground: #111111;
+  /* --primary is overridden per month by getMonthTheme() */
+  --primary: #f7a8c8;
+  --primary-foreground: #111111;
+  --secondary: #e5dccb;
+  --secondary-foreground: #111111;
+  --muted: #e5dccb;
+  --muted-foreground: #5c5a55;
+  --accent: #f3ecdd;
+  --accent-foreground: #111111;
+  --destructive: #c8251b;
+  --destructive-soft: #ffe3de;
+  --border: #111111;
+  --input: #111111;
+  --ring: #111111;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);

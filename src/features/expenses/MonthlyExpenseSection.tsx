@@ -35,20 +35,19 @@ export const MonthlyExpenseSection = () => {
 
   return (
     <main className="mx-auto w-full max-w-md px-4 pb-32 pt-4 sm:pt-10">
-      <header className="mb-4 flex h-8 items-center">
-        <span className="font-display text-lg font-semibold tracking-tight">
+      <header className="mb-4 flex h-8 items-center justify-between">
+        <span className="font-display text-xl font-extrabold tracking-tight">
           Expenses
+        </span>
+        <span className="text-sm font-bold text-muted-foreground">
+          {new Date().getFullYear()}
         </span>
       </header>
 
-      <MonthHero>
-        <p className="mt-8 font-display text-4xl font-semibold tabular-nums tracking-tight">
-          {formatAmount(totalExpensesAmount)}
-        </p>
-        <p className="mt-1 text-sm text-primary-foreground/80">
-          spent this month
-        </p>
-      </MonthHero>
+      <MonthHero
+        total={formatAmount(totalExpensesAmount)}
+        expenseCount={expenses.length}
+      />
 
       {openModal && (
         <div
@@ -82,7 +81,7 @@ export const MonthlyExpenseSection = () => {
         <Button
           variant="default"
           size="lg"
-          className="pointer-events-auto h-14 rounded-full px-7 text-base shadow-lg shadow-primary/30"
+          className="pointer-events-auto h-14 px-7"
           onClick={() => {
             setOpenModal(true);
           }}
