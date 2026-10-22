@@ -6,7 +6,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { Expense } from "./types";
+import { NewExpense } from "./types";
 
 type FirebaseExpenseResponse = {
   amount: number;
@@ -15,7 +15,7 @@ type FirebaseExpenseResponse = {
 }[];
 
 export const addExpense = async (
-  expense: Expense
+  expense: NewExpense,
 ): Promise<string | undefined> => {
   try {
     const docRef = await addDoc(collection(db, "expenses"), expense);

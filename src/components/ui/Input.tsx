@@ -1,43 +1,41 @@
-import { useId, type HTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
+import { InputHTMLAttributes, useId } from "react";
+
+type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
+  label?: string;
+  onChangeValue?: (value: string) => void;
+};
 
 export const Input = ({
-  onChangeValue,
-  placeholder,
-  type = "text",
-  value,
+  id,
   label,
-  inputMode,
-  autoComplete,
-  autoFocus,
-}: {
-  onChangeValue: (value: string) => void;
-  placeholder?: string;
-  type?: string;
-  value: string;
-  label?: string;
-  inputMode?: HTMLAttributes<HTMLInputElement>["inputMode"];
-  autoComplete?: string;
-  autoFocus?: boolean;
-}) => {
-  const id = useId();
+  onChangeValue,
+  className,
+  type = "text",
+  ...rest
+}: InputProps) => {
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
 
   return (
     <div className="grid gap-1.5">
       {label && (
-        <label htmlFor={id} className="text-sm font-medium text-foreground">
+        <label
+          htmlFor={inputId}
+          className="text-sm font-medium text-foreground"
+        >
           {label}
         </label>
       )}
       <input
-        id={id}
+        {...rest}
+        id={inputId}
         type={type}
-        value={value}
-        placeholder={placeholder}
-        inputMode={inputMode}
-        autoComplete={autoComplete}
-        autoFocus={autoFocus}
-        onChange={(e) => onChangeValue(e.target.value)}
-        className="h-12 w-full rounded-xl border border-input bg-card px-4 text-base text-foreground outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/20"
+        onChange={(e) => onChangeValue?.(e.target.value)}
+        className={cn(
+          "h-12 w-full rounded-xl border border-input bg-card px-4 text-base text-foreground outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/20",
+          className,
+        )}
       />
     </div>
   );

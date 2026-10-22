@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Communication
+
+Use caveman mode (full) in every response unless the user turns it off ("stop caveman" / "normal mode"). Agents whose own definition says otherwise follow their definition.
+
 ## Commands
 
 Requires Node 24 (`.nvmrc`; run `nvm use`). Tailwind 4.2+ native binding needs Node >= 20.
