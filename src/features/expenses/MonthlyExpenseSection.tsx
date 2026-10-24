@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import type { Expense } from "./types";
 
 import { AddExpenseForm } from "./AddExpenseForm";
-import { AmountList } from "@/components/AmountList";
-import { Button, Card, Tabs, MonthHero } from "@/components/ui";
+import { Button, Tabs, MonthHero } from "@/components/ui";
 import { Expenses } from "./types";
 import { getExpenses } from "./expensesService";
 import { Plus } from "lucide-react";
 import { formatAmount } from "@/lib/format";
+import { ExpenseBreakdown } from "./ExpenseBreakdown";
 
 export const MonthlyExpenseSection = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -66,24 +66,18 @@ export const MonthlyExpenseSection = () => {
           {
             title: "Expenses",
             content: (
-              <Card>
-                <AmountList
-                  items={expenses.map((exp) => ({
-                    id: exp.id,
-                    name: exp.name,
-                    amount: exp.amount,
-                  }))}
-                />
-              </Card>
+              <ExpenseBreakdown
+                items={expenses.map((exp) => ({
+                  id: exp.id,
+                  name: exp.name,
+                  amount: exp.amount,
+                }))}
+              />
             ),
           },
           {
             title: "Income",
-            content: (
-              <Card>
-                <AmountList items={[]} />
-              </Card>
-            ),
+            content: <ExpenseBreakdown items={[]} />,
           },
         ]}
       />
