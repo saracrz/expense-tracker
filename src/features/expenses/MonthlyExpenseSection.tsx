@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import type { Expense } from "./types";
 
-import { getExpenses } from "./expensesService";
-import { Button, Tabs, MonthHero } from "../../components/ui";
-import { Expenses } from "./types";
-import { Plus } from "lucide-react";
 import { AddExpenseForm } from "./AddExpenseForm";
-import { AmountList } from "../../components/AmountList";
-
-const formatAmount = (amount: number) => `${amount.toFixed(2)} €`;
+import { AmountList } from "@/components/AmountList";
+import { Button, Card, Tabs, MonthHero } from "@/components/ui";
+import { Expenses } from "./types";
+import { getExpenses } from "./expensesService";
+import { Plus } from "lucide-react";
+import { formatAmount } from "@/lib/format";
 
 export const MonthlyExpenseSection = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -67,17 +66,24 @@ export const MonthlyExpenseSection = () => {
           {
             title: "Expenses",
             content: (
-              <AmountList
-                items={expenses.map((exp) => ({
-                  itemName: exp.name,
-                  itemAmount: formatAmount(exp.amount),
-                }))}
-              />
+              <Card>
+                <AmountList
+                  items={expenses.map((exp) => ({
+                    id: exp.id,
+                    name: exp.name,
+                    amount: exp.amount,
+                  }))}
+                />
+              </Card>
             ),
           },
           {
             title: "Income",
-            content: <AmountList items={[]} />,
+            content: (
+              <Card>
+                <AmountList items={[]} />
+              </Card>
+            ),
           },
         ]}
       />

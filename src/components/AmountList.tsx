@@ -1,11 +1,13 @@
-import { AmountChip } from "./ui/AmountChip";
+import { AmountChip } from "@/components/ui";
+import { formatAmount } from "@/lib/format";
 
-export interface Items {
-  itemName: string;
-  itemAmount: string;
+export interface AmountItem {
+  id: string;
+  name: string;
+  amount: number;
 }
 
-export const AmountList = ({ items }: { items: Items[] }) => {
+export const AmountList = ({ items }: { items: AmountItem[] }) => {
   return (
     <>
       {items.length === 0 ? (
@@ -13,16 +15,14 @@ export const AmountList = ({ items }: { items: Items[] }) => {
           Nothing here yet.
         </p>
       ) : (
-        <ul role="tabpanel">
-          {items.map((item, index) => (
+        <ul>
+          {items.map((item) => (
             <li
               className="flex items-center justify-between gap-4 border-b border-foreground/12 py-3 last:border-b-0"
-              key={index}
+              key={item.id}
             >
-              <span className="truncate text-base font-bold">
-                {item.itemName}
-              </span>
-              <AmountChip>{item.itemAmount}</AmountChip>
+              <span className="truncate text-base font-bold">{item.name}</span>
+              <AmountChip>{formatAmount(item.amount)}</AmountChip>
             </li>
           ))}
         </ul>

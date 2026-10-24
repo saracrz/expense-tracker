@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useState, useId, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
 interface Tab {
   title: string;
-  content: React.ReactNode;
+  content: ReactNode;
 }
 
 type TabsProps = { tabs: Tab[] };
 
 export const Tabs = ({ tabs }: TabsProps) => {
   const [activeTab, setActiveTab] = useState(0);
+  const baseId = useId();
+  const tabId = (i: number) => `${baseId}-tab-${i}`;
+  const panelId = (i: number) => `${baseId}-panel-${i}`;
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
@@ -27,6 +30,8 @@ export const Tabs = ({ tabs }: TabsProps) => {
             key={index}
             role="tab"
             aria-selected={index === activeTab}
+            id={tabId(index)}
+            aria-controls={panelId(index)}
             className={cn(
               "flex-1 rounded-full py-2.5 text-base font-bold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none",
               index === activeTab
@@ -39,7 +44,11 @@ export const Tabs = ({ tabs }: TabsProps) => {
           </button>
         ))}
       </div>
-      <div className="rounded-card border-2 border-foreground bg-card px-4 shadow-hard">
+      <div
+        role="tabpanel"
+        id={panelId(activeTab)}
+        aria-labelledby={tabId(activeTab)}
+      >
         {tabs.length > 0 && tabs[activeTab].content}
       </div>
     </div>

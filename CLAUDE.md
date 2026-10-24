@@ -27,11 +27,12 @@ Firebase config comes from `.env` via `import.meta.env` (see `src/firebase.ts`):
 React 19 + TypeScript + Vite SPA backed by Firebase Firestore. No router and no login: `App.tsx` renders `MonthlyExpenseSection` directly. Firebase is slated for removal; until then expenses won't load or save without Firestore access.
 
 Feature-based ("DDD") layout under `src/`:
+
 - `features/<domain>/` — each domain owns its components, service (`xService.ts`, Firebase calls), and `types.ts`. Domains: `expenses` (`useExpenses.ts` is currently empty; state lives in `MonthlyExpenseSection`).
 - `components/ui/` — shared presentational components, re-exported from `components/ui/index.ts`; import from `components/ui`, not individual files.
 - `firebase.ts` — single Firebase init; exports `app`, `db`.
 - `lib/utils.ts` — `cn()` (clsx + tailwind-merge).
-- `helpers/` — misc utilities.
+- `lib/format.ts` — formatAmount() (EUR, es-ES)
 
 Data: expenses stored in a single top-level Firestore `expenses` collection (`{ name, amount }`), not scoped per user.
 
