@@ -20,7 +20,7 @@ export const Tabs = ({ tabs }: TabsProps) => {
   };
 
   return (
-    <div className="mt-5 grid gap-5">
+    <div className="mt-5 grid grid-cols-1 gap-5">
       <div
         role="tablist"
         className="flex gap-1 rounded-full border-2 border-foreground bg-card p-1"
