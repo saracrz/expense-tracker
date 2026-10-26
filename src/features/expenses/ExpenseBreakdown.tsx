@@ -1,8 +1,14 @@
 import { AmountList, AmountItem } from "@/components/AmountList";
 import { Card } from "@/components/ui";
 import { calculateShares } from "@/lib/shares";
-import { CHIP_COLORS } from "@/constants/chips";
 import { cn } from "@/lib/utils";
+
+const CHIP_COLORS = [
+  "bg-category-home",
+  "bg-category-food",
+  "bg-category-bills",
+  "bg-category-health",
+];
 
 export const ExpenseBreakdown = ({ items }: { items: AmountItem[] }) => {
   const itemsWithChips = calculateShares(items).map((item, index) => ({

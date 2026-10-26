@@ -1,35 +1,31 @@
-import { useEffect, useState } from "react";
-import type { Expense } from "./types";
+import { useState } from "react";
+import { useExpenses } from "./useExpenses";
 
 import { AddExpenseForm } from "./AddExpenseForm";
-import { Button, Tabs, MonthHero } from "@/components/ui";
-import { Expenses } from "./types";
-import { getExpenses } from "./expensesService";
+import { Button, Tabs, MonthHero, Card } from "@/components/ui";
+
 import { Plus } from "lucide-react";
 import { formatAmount } from "@/lib/format";
 import { ExpenseBreakdown } from "./ExpenseBreakdown";
+import { AmountList } from "@/components/AmountList";
+import { type Expense } from "./types";
 
 export const MonthlyExpenseSection = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [expenses, setExpenses] = useState<Expenses>([]);
+  const { dataStatus, addExpense } = useExpenses();
+
+  if (dataStatus.status === "loading") return <p>Loading…</p>; // provisional
+  if (dataStatus.status === "failed") return <p>{dataStatus.message}</p>; // provisional
+
+  const expenses = dataStatus.data;
 
   const totalExpensesAmount = expenses.reduce(
     (sum, expense) => sum + expense.amount,
     0,
   );
 
-  useEffect(() => {
-    const fetchExpenses = async () => {
-      const expenses = await getExpenses();
-
-      setExpenses(expenses);
-    };
-
-    fetchExpenses();
-  }, []);
-
-  const handleExpense = (expense: Expense) => {
-    setExpenses((prev) => [...prev, expense]);
+  const handleAddExpense = (expense: Expense) => {
+    addExpense(expense);
     setOpenModal(false);
   };
 
@@ -55,7 +51,7 @@ export const MonthlyExpenseSection = () => {
           onClick={() => setOpenModal(false)}
         >
           <AddExpenseForm
-            onAddExpense={handleExpense}
+            onAddExpense={handleAddExpense}
             onClose={() => setOpenModal(false)}
           />
         </div>
@@ -65,19 +61,15 @@ export const MonthlyExpenseSection = () => {
         tabs={[
           {
             title: "Expenses",
-            content: (
-              <ExpenseBreakdown
-                items={expenses.map((exp) => ({
-                  id: exp.id,
-                  name: exp.name,
-                  amount: exp.amount,
-                }))}
-              />
-            ),
+            content: <ExpenseBreakdown items={expenses} />,
           },
           {
             title: "Income",
-            content: <ExpenseBreakdown items={[]} />,
+            content: (
+              <Card>
+                <AmountList items={[]} />
+              </Card>
+            ),
           },
         ]}
       />

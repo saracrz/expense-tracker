@@ -13,3 +13,8 @@ export type AddExpenseState =
   | { status: "invalid"; message: string }
   | { status: "failed"; message: string }
   | { status: "success" };
+
+export type ExpensesState =
+  | { status: "loading" }
+  | { status: "failed"; message: string }
+  | { status: "success"; data: Expenses };
