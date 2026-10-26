@@ -66,18 +66,18 @@ export const AddExpenseForm = ({
       aria-labelledby="add-expense-title"
       onClick={(e) => e.stopPropagation()}
       action={formAction}
-      className="w-full max-w-md rounded-t-4xl bg-background p-6 pb-[max(2rem,env(safe-area-inset-bottom))] animate-in slide-in-from-bottom-8 duration-300 motion-reduce:animate-none sm:rounded-[2rem] sm:pb-6"
+      className="w-full max-w-md rounded-t-sheet border-2 border-b-0 border-foreground bg-card p-6 pb-[max(2.25rem,env(safe-area-inset-bottom))] animate-in slide-in-from-bottom-8 duration-300 motion-reduce:animate-none sm:rounded-sheet sm:border-b-2 sm:pb-6 sm:shadow-hard"
     >
       <div className="mb-6 flex items-center justify-between">
         <h2
           id="add-expense-title"
-          className="font-display text-2xl font-semibold tracking-tight"
+          className="font-display text-2xl font-extrabold tracking-tight"
         >
           Add expense
         </h2>
         <Button
           type="button"
-          variant="ghost"
+          variant="outline"
           size="icon"
           aria-label="Close"
           onClick={onClose}
@@ -97,13 +97,14 @@ export const AddExpenseForm = ({
           label="Expense amount"
           placeholder="0.00"
           inputMode="decimal"
+          suffix="€"
         />
       </div>
       <Button
         disabled={isPending}
         type="submit"
         size="lg"
-        className="mt-6 h-12 w-full rounded-full text-base"
+        className="mt-6 w-full"
       >
         {isPending ? "Saving..." : "Save"}
       </Button>

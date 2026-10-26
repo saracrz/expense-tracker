@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import type { Expense } from "./types";
 
-import { getExpenses } from "./expensesService";
-import { Button, Tabs, MonthHero } from "../../components/ui";
-import { Expenses } from "./types";
-import { Plus } from "lucide-react";
 import { AddExpenseForm } from "./AddExpenseForm";
-
-const formatAmount = (amount: number) => `${amount.toFixed(2)} €`;
+import { Button, Tabs, MonthHero } from "@/components/ui";
+import { Expenses } from "./types";
+import { getExpenses } from "./expensesService";
+import { Plus } from "lucide-react";
+import { formatAmount } from "@/lib/format";
+import { ExpenseBreakdown } from "./ExpenseBreakdown";
 
 export const MonthlyExpenseSection = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -35,20 +35,19 @@ export const MonthlyExpenseSection = () => {
 
   return (
     <main className="mx-auto w-full max-w-md px-4 pb-32 pt-4 sm:pt-10">
-      <header className="mb-4 flex h-8 items-center">
-        <span className="font-display text-lg font-semibold tracking-tight">
+      <header className="mb-4 flex h-8 items-center justify-between">
+        <span className="font-display text-xl font-extrabold tracking-tight">
           Expenses
+        </span>
+        <span className="text-sm font-bold text-muted-foreground">
+          {new Date().getFullYear()}
         </span>
       </header>
 
-      <MonthHero>
-        <p className="mt-8 font-display text-4xl font-semibold tabular-nums tracking-tight">
-          {formatAmount(totalExpensesAmount)}
-        </p>
-        <p className="mt-1 text-sm text-primary-foreground/80">
-          spent this month
-        </p>
-      </MonthHero>
+      <MonthHero
+        total={formatAmount(totalExpensesAmount)}
+        expenseCount={expenses.length}
+      />
 
       {openModal && (
         <div
@@ -66,14 +65,19 @@ export const MonthlyExpenseSection = () => {
         tabs={[
           {
             title: "Expenses",
-            items: expenses.map((exp) => ({
-              itemName: exp.name,
-              itemAmount: formatAmount(exp.amount),
-            })),
+            content: (
+              <ExpenseBreakdown
+                items={expenses.map((exp) => ({
+                  id: exp.id,
+                  name: exp.name,
+                  amount: exp.amount,
+                }))}
+              />
+            ),
           },
           {
             title: "Income",
-            items: [{ itemName: "salary", itemAmount: "2000" }],
+            content: <ExpenseBreakdown items={[]} />,
           },
         ]}
       />
@@ -82,7 +86,7 @@ export const MonthlyExpenseSection = () => {
         <Button
           variant="default"
           size="lg"
-          className="pointer-events-auto h-14 rounded-full px-7 text-base shadow-lg shadow-primary/30"
+          className="pointer-events-auto h-14 px-7"
           onClick={() => {
             setOpenModal(true);
           }}

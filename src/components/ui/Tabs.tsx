@@ -1,41 +1,42 @@
-import { useState } from "react";
-import { generateRandomKey } from "../../helpers";
+import { useState, useId, type ReactNode } from "react";
+
 import { cn } from "@/lib/utils";
 
 interface Tab {
   title: string;
-  items: Items[];
-}
-
-interface Items {
-  itemName: string;
-  itemAmount: string;
+  content: ReactNode;
 }
 
 type TabsProps = { tabs: Tab[] };
 
 export const Tabs = ({ tabs }: TabsProps) => {
   const [activeTab, setActiveTab] = useState(0);
+  const baseId = useId();
+  const tabId = (i: number) => `${baseId}-tab-${i}`;
+  const panelId = (i: number) => `${baseId}-panel-${i}`;
 
   const handleTabClick = (index: number) => {
     setActiveTab(index);
   };
 
-  const items = tabs[activeTab].items ?? [];
-
   return (
-    <div className="mt-8">
-      <div role="tablist" className="flex gap-6 border-b border-border">
+    <div className="mt-5 grid grid-cols-1 gap-5">
+      <div
+        role="tablist"
+        className="flex gap-1 rounded-full border-2 border-foreground bg-card p-1"
+      >
         {tabs.map((tab, index) => (
           <button
-            key={generateRandomKey(tab.title)}
+            key={index}
             role="tab"
             aria-selected={index === activeTab}
+            id={tabId(index)}
+            aria-controls={panelId(index)}
             className={cn(
-              "-mb-px border-b-2 pb-3 text-sm font-semibold transition-colors outline-none focus-visible:text-primary",
+              "flex-1 rounded-full py-2.5 text-base font-bold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none",
               index === activeTab
-                ? "border-primary text-foreground"
-                : "border-transparent text-muted-foreground hover:text-foreground",
+                ? "bg-foreground text-card"
+                : "text-foreground hover:bg-accent",
             )}
             onClick={() => handleTabClick(index)}
           >
@@ -43,25 +44,13 @@ export const Tabs = ({ tabs }: TabsProps) => {
           </button>
         ))}
       </div>
-      {items.length === 0 ? (
-        <p className="py-12 text-center text-muted-foreground">
-          Nothing here yet.
-        </p>
-      ) : (
-        <ul role="tabpanel">
-          {items.map((item) => (
-            <li
-              className="flex items-baseline justify-between gap-4 border-b border-border py-4 last:border-b-0"
-              key={generateRandomKey(item.itemName)}
-            >
-              <span className="truncate">{item.itemName}</span>
-              <span className="shrink-0 font-medium tabular-nums">
-                {item.itemAmount}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div
+        role="tabpanel"
+        id={panelId(activeTab)}
+        aria-labelledby={tabId(activeTab)}
+      >
+        {tabs.length > 0 && tabs[activeTab].content}
+      </div>
     </div>
   );
 };
