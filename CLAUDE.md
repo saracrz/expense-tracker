@@ -33,6 +33,8 @@ Feature-based ("DDD") layout under `src/`:
 - `firebase.ts` — single Firebase init; exports `app`, `db`.
 - `lib/utils.ts` — `cn()` (clsx + tailwind-merge).
 - `lib/format.ts` — formatAmount() (EUR, es-ES)
+- `lib/shares.ts` — calculateShares() (EUR, es-ES)
+-
 
 Data: expenses stored in a single top-level Firestore `expenses` collection (`{ name, amount }`), not scoped per user.
 
